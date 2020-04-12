@@ -1,0 +1,4 @@
+variable hello equals " I don't know. do you know? "  .
+variable num equals 13 .
+say existing-variable num .
+say existing-variable hello .
