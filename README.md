@@ -1,6 +1,6 @@
 # cie
 CIE (Code in English) is a programming language that aims to be as close to english as possible.
 
-`variable name equals " Bob " .
+`variable name equals " Bob " .`
 
-say existing-variable name .`
+`say existing-variable name .`
