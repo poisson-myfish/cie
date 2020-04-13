@@ -1,4 +1,7 @@
-variable hello equals " I don't know. do you know? "  .
-variable num equals 13 .
-say existing-variable num .
-say existing-variable hello .
+say " How old are you? " .
+variable age equals user-input .
+variable num1 equals 17 .
+variable num2 equals 18 .
+
+if-bigger existing-variable age existing-variable num1 then say " You're 18 or older " .
+if-smaller existing-variable age existing-variable num2 then say " You're 18 or younger " .
