@@ -5,4 +5,4 @@ CIE (Code in English) is a programming language that aims to be as close to engl
 
 `say existing-variable name .`
 
-**IF YOU WANT TO CONTRIBUTE TO THE PROJECT, FEEL FREE TO CONTACT ME**
+**IF YOU WANT TO CONTRIBUTE TO THE PROJECT, FEEL FREE TO CONTACT ME AT EMAIL myfishispoisson@gmail.com**
