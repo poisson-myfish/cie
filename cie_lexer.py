@@ -23,7 +23,7 @@ class Lexer(object):
                 elif word == 'create':
                     tokens.append(["VARIABLE_CREATE", word])
 
-            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided', 'is']:
+            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided', 'is', 'bigger', 'smaller', 'not']:
                 tokens.append(["OPERATOR", word])
 
             elif word == 'say':
@@ -34,6 +34,12 @@ class Lexer(object):
                 tokens.append(["QUOTES", '"'])
                 tokens.append(["IDENTIFIER", wordcut])
                 tokens.append(["QUOTES", '"'])
+
+            elif word == 'if':
+                tokens.append(["CONDITIONAL", word])
+
+            elif word == 'done':
+                tokens.append(["DONE", word])
 
             elif word[0] == '"':
                 tokens.append(["QUOTES", '"'])
@@ -79,7 +85,7 @@ class Lexer(object):
                 tokens.append(["IF_SMALLER", word])
 
             elif word == 'then':
-                tokens.append(["then", word])
+                tokens.append(["THEN", word])
 
             elif word == 'format':
                 tokens.append(["FORMAT_STRING", word])

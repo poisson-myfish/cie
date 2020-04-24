@@ -1,8 +1,13 @@
-create age
-create age_plus_one
+create number
+create number_two
+set number      is 14
+set number_two  is 13
 
-say "How old are you?"
-set age             is user-input
-set age_plus_one    is math "$age plus 1"
+if get number equals get number_two then
+    say "It is"
+    say "Now, what's your name?"
+    set name is user-input
+    say format "Oh, you're $name !"
+done
 
-say format "Your age plus one is $age_plus_one"
+say "After the conditional"

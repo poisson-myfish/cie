@@ -2,23 +2,31 @@ from cie_errors import ErrorAndQuit, DebugMessage, InternalError
 
 class Parser(object):
     def __init__(self, tokens):
-        self.tokens         = tokens
-        self.token_index    = 0
-        self.variables      = {}
+        self.tokens             = tokens
+        self.token_index        = 0
+        self.variables          = {}
+        self.conditional_true   = True
 
     def parse(self):
         while self.token_index < len(self.tokens):
             token_type  = self.tokens[self.token_index][0]
             token_value = self.tokens[self.token_index][1]
 
-            if token_type == "VARIABLE_DECLARE" and token_value == 'set':
-                self.parse_variable_declare(self.tokens[self.token_index:len(self.tokens)])
-            
-            elif token_type == "SAY":
-                self.parse_say(self.tokens[self.token_index:len(self.tokens)])
+            if self.conditional_true:
+                if token_type == "VARIABLE_DECLARE" and token_value == 'set':
+                    self.parse_variable_declare(self.tokens[self.token_index:len(self.tokens)])
+                
+                elif token_type == "SAY":
+                    self.parse_say(self.tokens[self.token_index:len(self.tokens)])
 
-            elif token_type == "VARIABLE_CREATE":
-                self.parse_create_variable(self.tokens[self.token_index:len(self.tokens)])
+                elif token_type == "VARIABLE_CREATE":
+                    self.parse_create_variable(self.tokens[self.token_index:len(self.tokens)])
+
+                elif token_type == "CONDITIONAL":
+                    self.parse_conditional(self.tokens[self.token_index:len(self.tokens)])
+
+            elif token_type == "DONE":
+                self.conditional_true = True
 
             #elif token_type == "IF_EQUAL":
             #    self.parse_if_equal(self.tokens[self.token_index:len(self.tokens)])
@@ -32,7 +40,7 @@ class Parser(object):
             #elif token_type == "IF_SMALLER":
             #    self.parse_if_smaller(self.tokens[self.token_index:len(self.tokens)])
             elif token_type in ["IF_EQUAL", "IF_NOT_EQUAL", "IF_BIGGER", "IF_SMALLER"]:
-                ErrorAndQuit('If statements were removed due to various errors. If you want to contribute to fixing them, go to https://github.com/poisson-myfish/cie.')
+                ErrorAndQuit('If conditionals were removed due to various errors. If you want to contribute to fixing them, go to https://github.com/poisson-myfish/cie.')
 
 
             self.token_index += 1
@@ -453,4 +461,97 @@ class Parser(object):
                 variable_name = token_value
 
             tokens_checked += 1
+
+        self.token_index += tokens_checked
             
+
+    def parse_conditional(self, token_stream):
+        tokens_checked          = 0
+        check_ended             = False
+        next_variable           = False
+        first_variable_name     = ''
+        second_variable_name    = ''
+        check_type              = ''
+        after_token_add         = 0
+
+        for token in range(0, len(token_stream)):
+            token_type          = token_stream[tokens_checked][0]
+            token_value         = token_stream[tokens_checked][1]
+
+            if token_type == "LINE_ENDING":
+                break
+
+            if token == 1 and token_type == "EXISTING_VARIABLE":
+                next_variable = True
+
+            elif token == 2 and next_variable and token_type == "IDENTIFIER":
+                first_variable_name = token_value
+                next_variable = False
+
+            elif token == 3 and token_type == "OPERATOR":
+                if token_value == 'equals':
+                    check_type = 'equality'
+                elif token_value == 'bigger':
+                    check_type = 'bigger'
+                elif token_value == 'smaller':
+                    check_type = 'smaller'
+                elif token_value == 'not':
+                    check_type == 'not'
+                else:
+                    ErrorAndQuit(f'"{ token_value }" is not a valid operator for conditionals')
+            elif token == 3 and token_type != "OPERATOR":
+                ErrorAndQuit(f'"{ token_value }" is not a valid operator for conditionals')
+
+            elif token == 4 and token_type == "EXISTING_VARIABLE":
+                next_variable   = True
+                after_token_add = 1
+
+            elif token == 4 + after_token_add and token_type == "IDENTIFIER":
+                second_variable_name = token_value
+                next_variable = False
+
+            elif token == 4 + after_token_add and token_type != "IDENTIFIER":
+                ErrorAndQuit(f'"{ token_value }" variable name is illegal')
+
+            elif token == 5 + after_token_add and token_type == "THEN":
+                check_ended = True
+                if check_ended == True:
+                    if check_type == 'equality':
+                        try:
+                            if self.variables[first_variable_name] == self.variables[second_variable_name]:
+                                self.conditional_true = True
+                            else:
+                                self.conditional_true = False
+                        except:
+                            ErrorAndQuit(f'Variable "{ first_variable_name }" or "{ second_variable_name }" refereced before assignment')
+
+                    elif check_type == 'bigger':
+                        try:
+                            if self.variables[first_variable_name] > self.variables[second_variable_name]:
+                                self.conditional_true = True
+                            else:
+                                self.conditional_true = False
+                        except:
+                            ErrorAndQuit(f'Variable "{ first_variable_name }" or "{ second_variable_name }" refereced before assignment')
+
+                    elif check_type == 'smaller':
+                        try:
+                            if self.variables[first_variable_name] < self.variables[second_variable_name]:
+                                self.conditional_true = True
+                            else:
+                                self.conditional_true = False
+                        except:
+                            ErrorAndQuit(f'Variable "{ first_variable_name }" or "{ second_variable_name }" refereced before assignment')
+
+                    elif check_type == 'not':
+                        try:
+                            if self.variables[first_variable_name] != self.variables[second_variable_name]:
+                                self.conditional_true = True
+                            else:
+                                self.conditional_true = False
+                        except:
+                            ErrorAndQuit(f'Variable "{ first_variable_name }" or "{ second_variable_name }" refereced before assignment')
+
+            tokens_checked += 1
+
+        self.token_index += tokens_checked
