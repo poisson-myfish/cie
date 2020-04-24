@@ -11,7 +11,7 @@ class Parser(object):
             token_type  = self.tokens[self.token_index][0]
             token_value = self.tokens[self.token_index][1]
 
-            if token_type == "VARIABLE_DECLARE" and token_value == 'variable':
+            if token_type == "VARIABLE_DECLARE" and token_value == 'set':
                 self.parse_variable_declare(self.tokens[self.token_index:len(self.tokens)])
             
             elif token_type == "SAY":
@@ -117,11 +117,12 @@ class Parser(object):
     def parse_say(self, token_stream):
         tokens_checked          = 0
         variable_name           = ''
-        say_what                = ''
+        say_what                = 'none'
         string_value            = ''
         string_started          = False
         string_ended            = False
         inline_variable_next    = False
+        variable_said           = False
 
         for token in range(0, len(token_stream)):
             token_type  = token_stream[tokens_checked][0]
@@ -150,6 +151,11 @@ class Parser(object):
 
             elif token == 2 and token_type in ["STRING", "NUMBER", "IDENTIFIER"] and say_what == 'variable':
                 variable_name = token_value
+                variable_said = True
+
+            elif token == 2 and say_what == 'formatted-string':
+                if token_type == "QUOTES":
+                    string_started = True
             
             elif say_what == 'string' and string_started and string_ended == False:
                 if token_type != "QUOTES":

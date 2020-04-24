@@ -2,12 +2,12 @@ import re
 
 class Lexer(object):
     def __init__(self, code):
-        self.code = code
+        self.code = re.findall(r'\S+|\n', code)
 
     def tokenizer(self):
         # Initialize variables
         tokens      = []
-        code        = self.code.split()
+        code        = self.code
         code_index  = 0
 
         # Iterate through the code tokens
@@ -15,10 +15,10 @@ class Lexer(object):
             word = code[code_index]
 
             # Create tokens
-            if word in ['existing-variable', 'variable']:
-                if word == 'variable':
+            if word in ['get', 'set']:
+                if word == 'set':
                     tokens.append(["VARIABLE_DECLARE", word])
-                elif word == 'existing-variable':
+                elif word == 'get':
                     tokens.append(["EXISTING_VARIABLE", word])
 
             elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided']:
@@ -30,7 +30,38 @@ class Lexer(object):
             elif re.match('[0-9]', word):
                 tokens.append(["NUMBER", word])
 
-            elif word in ["'", '"']:
+            elif word[0] == '"' and word[len(word) - 1] == '"':
+                wordcut = word[1:-1]
+                tokens.append(["QUOTES", '"'])
+                tokens.append(["IDENTIFIER", wordcut])
+                tokens.append(["QUOTES", '"'])
+
+            elif word[0] == '"':
+                tokens.append(["QUOTES", '"'])
+                try:
+                    wordcut = word[1:]
+                    if wordcut[0] == '$':
+                        tokens.append(["INLINE_VARIABLE", '$'])
+                        tokens.append(["IDENTIFIER", wordcut[1:]])
+                    else:
+                        tokens.append(["IDENTIFIER", wordcut])
+                except:
+                    pass
+
+            elif word[len(word) - 1] == '"':
+                wordcut = word[:-1]
+                try:
+                    wordcut = word[:-1]
+                    if wordcut[0] == '$':
+                        tokens.append(["INLINE_VARIABLE", '$'])
+                        tokens.append(["IDENTIFIER", wordcut[1:]])
+                    else:
+                        tokens.append(["IDENTIFIER", wordcut])
+                    tokens.append(["QUOTES", '"'])
+                except:
+                    pass
+
+            elif word == '"':
                 tokens.append(["QUOTES", word])
 
             elif word == 'math"':
@@ -51,7 +82,7 @@ class Lexer(object):
             elif word == 'then':
                 tokens.append(["then", word])
 
-            elif word == 'format"':
+            elif word == 'format':
                 tokens.append(["FORMAT_STRING", word])
 
             elif word == "user-input":
@@ -71,7 +102,7 @@ class Lexer(object):
             elif word in '=+-/*':
                 tokens.append(["INVALID_CHARACTER", word])
 
-            elif word == '.':
+            elif word == '\n':
                 tokens.append(["LINE_ENDING", '.'])
 
             code_index += 1

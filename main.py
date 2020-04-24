@@ -1,5 +1,6 @@
 from cie_lexer  import Lexer
 from cie_parser import Parser
+import re
 
 def main():
     content = ''
