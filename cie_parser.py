@@ -17,17 +17,19 @@ class Parser(object):
             elif token_type == "SAY":
                 self.parse_say(self.tokens[self.token_index:len(self.tokens)])
 
-            elif token_type == "IF_EQUAL":
-                self.parse_if_equal(self.tokens[self.token_index:len(self.tokens)])
+            #elif token_type == "IF_EQUAL":
+            #    self.parse_if_equal(self.tokens[self.token_index:len(self.tokens)])
 
-            elif token_type == "IF_NOT_EQUAL":
-                self.parse_if_not_equal(self.tokens[self.token_index:len(self.tokens)])
+            #elif token_type == "IF_NOT_EQUAL":
+            #    self.parse_if_not_equal(self.tokens[self.token_index:len(self.tokens)])
 
-            elif token_type == "IF_BIGGER":
-                self.parse_if_bigger(self.tokens[self.token_index:len(self.tokens)])
+            #elif token_type == "IF_BIGGER":
+            #    self.parse_if_bigger(self.tokens[self.token_index:len(self.tokens)])
 
-            elif token_type == "IF_SMALLER":
-                self.parse_if_smaller(self.tokens[self.token_index:len(self.tokens)])
+            #elif token_type == "IF_SMALLER":
+            #    self.parse_if_smaller(self.tokens[self.token_index:len(self.tokens)])
+            elif token_type in ["IF_EQUAL", "IF_NOT_EQUAL", "IF_BIGGER", "IF_SMALLER"]:
+                ErrorAndQuit('If statements were removed due to various errors. If you want to contribute to fixing them, go to https://github.com/poisson-myfish/cie.')
 
 
             self.token_index += 1
