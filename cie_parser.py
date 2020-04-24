@@ -17,6 +17,9 @@ class Parser(object):
             elif token_type == "SAY":
                 self.parse_say(self.tokens[self.token_index:len(self.tokens)])
 
+            elif token_type == "VARIABLE_CREATE":
+                self.parse_create_variable(self.tokens[self.token_index:len(self.tokens)])
+
             #elif token_type == "IF_EQUAL":
             #    self.parse_if_equal(self.tokens[self.token_index:len(self.tokens)])
 
@@ -60,7 +63,10 @@ class Parser(object):
                 ErrorAndQuit(f'Variable name "{token_value}" is illegal')
 
             elif token == 2 and token_type != "OPERATOR":
-                ErrorAndQuit(f'{token_value} is not an operator')
+                ErrorAndQuit(f'"{ token_value }" is not a declaring operator')
+
+            elif token == 2 and token_value != 'is':
+                ErrorAndQuit(f'"{ token_value }" is not a declaring operator')
 
             elif token == 3 and token_type == "QUOTES":
                 string_started = True
@@ -75,8 +81,10 @@ class Parser(object):
                     string_started = False
 
             elif token == 3 and token_type == "MATH":
-                math_started    = True
-                is_math         = True
+                is_math = True
+
+            elif token == 4 and token_type == "QUOTES" and is_math:
+                math_started = True
 
             elif math_started and is_math and inline_variable_next:
                 math_calculation += self.variables[token_value] + ' '
@@ -94,8 +102,11 @@ class Parser(object):
                                 math_calculation += ' * '
                             elif token_value == 'divided':
                                 math_calculation += ' / '
-                        elif token_type == "NUMBER":
-                            math_calculation += token_value
+                        elif token_type == "IDENTIFIER":
+                            try:
+                                math_calculation += token_value
+                            except:
+                                ErrorAndQuit(f'Illegal character "{ token_value }" in math')
                         else:
                             ErrorAndQuit(f'Illegal character "{ token_value }" in math')
                     else:
@@ -422,6 +433,24 @@ class Parser(object):
 
             tokens_checked += 1
 
-            
 
+    def parse_create_variable(self, token_stream):
+        tokens_checked  = 0
+        variable_name   = ''
+
+        for token in range(0, len(token_stream)):
+            token_type          = token_stream[tokens_checked][0]
+            token_value         = token_stream[tokens_checked][1]
+
+            if token_type == "LINE_ENDING":
+                self.variables[variable_name] = ''
+                break
+            
+            if token == 1 and token_type != "IDENTIFIER":
+                ErrorAndQuit(f'Variable name "{ token_value }" is illegal')
+
+            elif token == 1 and token_type == "IDENTIFIER":
+                variable_name = token_value
+
+            tokens_checked += 1
             

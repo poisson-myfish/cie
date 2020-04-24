@@ -1,2 +1,8 @@
-set name equals user-input
-say format "Name is $name"
+create age
+create age_plus_one
+
+say "How old are you?"
+set age             is user-input
+set age_plus_one    is math "$age plus 1"
+
+say format "Your age plus one is $age_plus_one"

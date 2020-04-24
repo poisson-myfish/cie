@@ -15,20 +15,19 @@ class Lexer(object):
             word = code[code_index]
 
             # Create tokens
-            if word in ['get', 'set']:
+            if word in ['get', 'set', 'create']:
                 if word == 'set':
                     tokens.append(["VARIABLE_DECLARE", word])
                 elif word == 'get':
                     tokens.append(["EXISTING_VARIABLE", word])
+                elif word == 'create':
+                    tokens.append(["VARIABLE_CREATE", word])
 
-            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided']:
+            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided', 'is']:
                 tokens.append(["OPERATOR", word])
 
             elif word == 'say':
                 tokens.append(['SAY', word])
-
-            elif re.match('[0-9]', word):
-                tokens.append(["NUMBER", word])
 
             elif word[0] == '"' and word[len(word) - 1] == '"':
                 wordcut = word[1:-1]
@@ -64,7 +63,7 @@ class Lexer(object):
             elif word == '"':
                 tokens.append(["QUOTES", word])
 
-            elif word == 'math"':
+            elif word == 'math':
                 tokens.append(["MATH", word])
 
             elif word == 'if-equal':
@@ -87,6 +86,9 @@ class Lexer(object):
 
             elif word == "user-input":
                 tokens.append(["USER_INPUT", word])
+
+            elif re.match('[0-9]', word):
+                tokens.append(["NUMBER", word])
 
             elif word[0] == '$':
                 tokens.append(["INLINE_VARIABLE", '$'])
