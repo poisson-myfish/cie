@@ -115,14 +115,14 @@ This function is used to define the ending of your UI app. It is required for th
 ## math
 This function is used to calculate any value, and variables can be put inside it by preceding them with the `$` symbol.
 
-**Usage: math "1 plus $<your_variable_name>"**
+**Usage: math "1 plus $your_variable_name"**
 
 It is used with the `set` function.
 
 ## format
 This function is used to insert variables into strings of text. It is used with `say`.
 
-**Usage: say format "It's a nice day. Am I right, <variable_name>?"**
+**Usage: say format "It's a nice day. Am I right, $variable_name?"**
 
 ## user-input
 This function is used to take input from the user. It is used with `set`.
