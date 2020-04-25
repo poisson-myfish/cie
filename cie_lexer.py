@@ -23,7 +23,7 @@ class Lexer(object):
                 elif word == 'create':
                     tokens.append(["VARIABLE_CREATE", word])
 
-            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided', 'is', 'bigger', 'smaller', 'not']:
+            elif word in ['equals', 'plus', 'minus', 'multiplied', 'divided', 'to', 'bigger', 'smaller', 'not']:
                 tokens.append(["OPERATOR", word])
 
             elif word == 'say':
@@ -38,8 +38,26 @@ class Lexer(object):
             elif word == 'if':
                 tokens.append(["CONDITIONAL", word])
 
+            elif word == 'else':
+                tokens.append(["ELSE", word])
+
+            elif word == 'else-if':
+                tokens.append(["ELSE_IF", word])
+
+            elif word == 'finished':
+                tokens.append(["IF_DONE", word])
+
             elif word == 'done':
-                tokens.append(["DONE", word])
+                tokens.append(["LOOP_DONE", word])
+
+            elif word == 'run':
+                tokens.append(["FUNCTION_RUN", word])
+
+            elif word == 'comment':
+                tokens.append(["COMMENT", word])
+
+            elif word == 'while':
+                tokens.append(["WHILE_LOOP", word])
 
             elif word[0] == '"':
                 tokens.append(["QUOTES", '"'])
@@ -72,18 +90,6 @@ class Lexer(object):
             elif word == 'math':
                 tokens.append(["MATH", word])
 
-            elif word == 'if-equal':
-                tokens.append(["IF_EQUAL", word])
-
-            elif word == 'if-not-equal':
-                tokens.append(["IF_NOT_EQUAL", word])
-
-            elif word == 'if-bigger':
-                tokens.append(["IF_BIGGER", word])
-
-            elif word == 'if-smaller':
-                tokens.append(["IF_SMALLER", word])
-
             elif word == 'then':
                 tokens.append(["THEN", word])
 
@@ -114,5 +120,4 @@ class Lexer(object):
                 tokens.append(["LINE_ENDING", '.'])
 
             code_index += 1
-
         return tokens

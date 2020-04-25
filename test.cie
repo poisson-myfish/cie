@@ -1,13 +1,2 @@
-create number
-create number_two
-set number      is 14
-set number_two  is 13
-
-if get number equals get number_two then
-    say "It is"
-    say "Now, what's your name?"
-    set name is user-input
-    say format "Oh, you're $name !"
-done
-
-say "After the conditional"
+comment To run say_hello.cie you do this:
+run say_hello
