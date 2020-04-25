@@ -12,7 +12,9 @@ CIE (Code in English) is a programming language that aims to be as close to engl
 
 ## Running code
 To run code, you have to create a file with the .cie extension, and pass it as an argument to the python program. For example, if you have a `main.cie` file, to run it do:
+
     $ python main.py main.cie
+
 Now, go see the "A HelloWorld Program" section!
 
 ## Note:
