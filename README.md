@@ -37,7 +37,7 @@ Say is a function that is used to print something to the screen.
 ## set 
 Set is a function that is used to assign a value to a variable.
 
-**Usage: set <variable_name> to <value>**
+**Usage: set <variable_name> to <variable_value>**
 
 ## get
 Get is a function that is used to get the value of a variable. It is used in combination with:
