@@ -17,8 +17,10 @@ To run code, you have to create a file with the .cie extension, and pass it as a
 
 Now, go see the "A HelloWorld Program" section!
 
-## Note:
+## Notes:
 At the end of every CIE program, you have to have a blank line, otherwise the last line of your program will not run.
+
+See issue #1
 
 
 ## A HelloWorld Program
