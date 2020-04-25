@@ -8,8 +8,12 @@ CIE (Code in English) is a programming language that aims to be as close to engl
 # Installation
 1. Install Python 3.6 or later
 2. Clone the repo or download as ZIP
-3. Code something in the test.cie file
-4. Run main.py using python
+3. Code!
+
+## Running code
+To run code, you have to create a file with the .cie extension, and pass it as an argument to the python program. For example, if you have a `main.cie` file, to run it do:
+    $ python main.py main.cie
+Now, go see the "A HelloWorld Program" section!
 
 ## Note:
 At the end of every CIE program, you have to have a blank line, otherwise the last line of your program will not run.
