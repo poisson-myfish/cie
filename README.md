@@ -11,6 +11,16 @@ CIE (Code in English) is a programming language that aims to be as close to engl
 3. Code something in the test.cie file
 4. Run main.py using python
 
+## Note:
+At the end of every CIE program, you have to have a blank line, otherwise the last line of your program will not run.
+
+
+## A HelloWorld Program
+    say "Hello, World!"
+
+It's easy, isn't it?
+
+
 # Documentation
 
 ## say
