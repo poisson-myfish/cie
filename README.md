@@ -93,7 +93,7 @@ This is used to comment a block of code you don't want the interpreter to run.
 
 ## UI
 ### use_ui
-This function is used to initialize the UI Window. It is required to make UI, and it has to be places before any other UI components.
+This function is used to initialize the UI Window. It is required to make UI, and it has to be placed before any other UI components.
 
 **Usage: use_ui**
 
