@@ -1,2 +1,2 @@
-comment To run say_hello.cie you do this:
-run say_hello
+set name to user-input
+run ui

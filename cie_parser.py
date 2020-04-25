@@ -1,5 +1,6 @@
 from cie_errors import ErrorAndQuit, DebugMessage, InternalError
 from cie_lexer  import Lexer
+from tkinter import *
 
 class Parser(object):
     def __init__(self, tokens):
@@ -16,6 +17,15 @@ class Parser(object):
 
                 if token_type == "COMMENT":
                     pass
+
+                elif token_type == "USE_UI":
+                    self.ui_root = Tk()
+
+                elif token_type == "UI_TEXT":
+                    self.parse_ui_text(self.tokens[self.token_index:len(self.tokens)])
+
+                elif token_type == "UI_END":
+                    self.parse_ui_end(self.tokens[self.token_index:len(self.tokens)])
 
                 elif token_type == "VARIABLE_DECLARE" and token_value == 'set':
                     self.parse_variable_declare(self.tokens[self.token_index:len(self.tokens)])
@@ -446,5 +456,41 @@ class Parser(object):
 
             elif token_type == "LINE_ENDING":
                 return
+
+            tokens_checked += 1
+
+
+    def parse_ui_text(self, token_stream):
+        tokens_checked          = 0
+        next_variable           = False
+        label                   = ''
+
+        for token in range(0, len(token_stream)):
+            token_type          = token_stream[tokens_checked][0]
+            token_value         = token_stream[tokens_checked][1]
+
+            if token == 1 and token_type in ["IDENTIFIER", "STRING", "NUMBER"]:
+                Label(self.ui_root, text=token_value).pack()
+            elif token == 1 and token_type == "EXISTING_VARIABLE":
+                next_variable = True
+
+            elif token == 2 and token_type == "IDENTIFIER" and next_variable:
+                label = self.variables[token_value]
+                Label(self.ui_root, text=label).pack()
+
+            elif token_type == "LINE_ENDING":
+                return
+
+            tokens_checked += 1
+
+
+    def parse_ui_end(self, token_stream):
+        tokens_checked          = 0
+
+        for token in range(0, len(token_stream)):
+            token_type          = token_stream[tokens_checked][0]
+            token_value         = token_stream[tokens_checked][1]
+
+            self.ui_root.mainloop()
 
             tokens_checked += 1

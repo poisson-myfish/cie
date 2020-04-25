@@ -84,6 +84,15 @@ class Lexer(object):
                 except:
                     pass
 
+            elif word == 'use_ui':
+                tokens.append(["USE_UI", word])
+
+            elif word == 'ui_text':
+                tokens.append(["UI_TEXT", word])
+
+            elif word == 'ui_app_end':
+                tokens.append(["UI_END", word])
+
             elif word == '"':
                 tokens.append(["QUOTES", word])
 
