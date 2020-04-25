@@ -51,6 +51,7 @@ This operator is used to assign a value to a variable. See `set`.
 These operators are used in if and if-else conditionals to compare two values.
 
 **Usage: if get <variable_one> equals get <variable_two> then...**
+
 **Note: See issue #1**
 
 ## if / else / else-if / done
@@ -89,7 +90,8 @@ This function is used to initialize the UI Window. It is required to make UI, an
 ### ui_text
 This function adds a label to the UI Window.
 
-**Usage: ui_text <YourTextWithoutSpaces>**
+**Usage: ui_text YourTextWithoutSpaces**
+
 or
 
 **Usage: ui_text get <variable_name>**
@@ -116,3 +118,15 @@ This function is used to insert variables into strings of text. It is used with 
 This function is used to take input from the user. It is used with `set`.
 
 **Usage: set name to user-input**
+
+## Actions
+Actions are like functions in other programming languages. Each action has a different file with the .cie extension.
+
+**Example:**
+
+For a file called **say_my_name.cie**, in another file is is runned like this:
+
+    run say_my_name
+
+Notice that you don't need the extension to run actions, it is added automatically. Just be sure to have the .cie extension on your action filename.
+
