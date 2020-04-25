@@ -34,7 +34,7 @@ It's easy, isn't it?
 ## say
 Say is a function that is used to print something to the screen.
 
-**Usage: say "<string>"**
+**Usage: say "<my_string>"**
 
 ## set 
 Set is a function that is used to assign a value to a variable.
