@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Make your first app!</title>
+        <meta charset='utf-8'/>
+        <link rel="stylesheet" type="text/css" href="./hello.html_files/github-markdown.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+        </style>
+        <script>
+            window.onload = function() {
+                if (document.querySelector("script[type=\"math/tex; mode=display\"]") !== null) {
+                    var mathjax = document.createElement("script");
+                    mathjax.src = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML";
+                    document.head.appendChild(mathjax);
+                }
+                if (document.getElementsByTagName("code").length !== 0) {
+                    var highlight = document.createElement("script");
+                    var highlightcss = document.createElement("link");
+                    highlight.src = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js";
+                    highlightcss.rel = "stylesheet";
+                    highlightcss.href = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/github.min.css";
+                    highlight.onload = function() {hljs.initHighlighting();};
+                    document.head.appendChild(highlight);
+                    document.head.appendChild(highlightcss);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <article class="markdown-body">
+            <h1 id="make-your-first-app">Make your first app!</h1>
+<p>This guide is meant for people that never typed code in their life but want to learn to make an app really fast and easy. If you&#39;re one of them, let&#39;s get started!</p>
+<h2 id="set-up-cie">Set up CIE</h2>
+<h3 id="step-1-download-cie-and-get-used-to-the-command-line">Step 1: Download CIE and get used to the Command Line</h3>
+<p>To use CIE and make apps, you first have to download it and learn how to use the command line. The command line is a very important part of developing apps, as it is used by most programming languages to run and manage your app. The command line is really easy to learn and it will help you a lot in your programming journey.</p>
+<ul>
+<li>Go to the <a href="http://python.org">python</a> website and download python.</li><li>Open the file you just downloaded. While installing, make sure you check the &#39;Add to PATH&#39; check box.</li><li>Go to the <a href="https://github.com/poisson-myfish/cie/releases">CIE Releases Page</a> and download the latest ZIP containing CIE.</li><li>Unzip the files in a good location, like Documents/CIE</li><li>If you&#39;re on Mac or Linux, open the &quot;Terminal&quot;. If you&#39;re on Windows, open the &quot;Command Prompt&quot;. If you haven&#39;t seen a Console Window before, don&#39;t fear, it&#39;s easier than it looks like.</li><li>Learn to use the Command Line basic commands.<ul>
+<li>First, check the folder you&#39;re currently in. This is shown on the last line of your window</li><li>On Mac and Linux, use <code>ls</code> and on Windows <code>dir</code> to show the files in the current directory.</li><li>Use <code>cd</code> to navigate to a directory. For example, if you&#39;re in Documents, type <code>cd CIE</code> to navigate to the CIE directory in Documents.</li><li>Use <code>cd ..</code> to go a folder back</li></ul>
+</li></ul>
+<h3 id="step-2-make-a-hello-world-app-and-run-it">Step 2: Make a Hello, World app and run it</h3>
+<p>A Hello, World app is a simple program which, as the name suggests, prints &quot;Hello, World!&quot; to the screen. It is often used to check if you have everything set up correctly, so let&#39;s do that! </p>
+<ul>
+<li>Now that you know how to use the command line, navigate to the directory in which you extraced CIE.</li><li>Open a text editor like Notepad and type the following lines into a document: <code>say &quot;Hello, World!&quot;</code>. <strong>IMPORTANT: Make sure you press enter after the line you wrote, so that you have a blank space after it.</strong></li><li>Save the file in the directory you just extracted CIE with the filename <code>hello.cie</code>. Make sure that you don&#39;t have a <code>.txt</code> extension at the end.</li><li>Go back to the command line and type: <code>python main.py hello.cie</code>. You should see <code>Hello, World!</code> print to the screen.</li></ul>
+<h2 id="learn-basic-programming">Learn basic programming</h2>
+<h3 id="part-1-variables-and-user-input">Part 1: Variables and user input</h3>
+<p>Variables are used to store data under a specific name. For example, if you use the sentence &quot;My Company is awesome&quot; a lot throughout your program, you can store it in a variable and access it under the name of &quot;company_description&quot;. This way, if you ever have to edit this description, you will only do it in one place. But enough theory, let&#39;s get to programming!</p>
+<p>Delete everything from the program you made earlier and add the following line: <code>set name to &quot;Bob&quot;</code>. So, what does that mean? By using the <code>set</code> keyword, you created your first <strong>variable</strong>! It&#39;s name is, well, &quot;name&quot;. And it&#39;s value is &quot;Bob&quot;.</p>
+<p>Now, let&#39;s use the variable that we just created! On the next line of your program, type: <code>say get name</code>. What does this mean? It means that you print(say) the variable <code>name</code> to the screen. The <code>get</code> keyword is used to get the variable. You have to type <code>get</code> before using any variable.</p>
+<p>Now your program should look like this:</p>
+<pre><code>set name to &quot;Bob&quot;
+say get name
+</code></pre><p>And again, it is very important to leave a blank line after you finish your program, showing where it ends. If you don&#39;t do that, the last line of your program will not run.</p>
+<p>Now let&#39;s make this more exciting!
+Replace <code>set name to &quot;Bob&quot;</code> with <code>set name to user-input</code>. This means that instead of giving the variable a value, you request it from the user. So now if you run the program, it will, apparently, not do anything. But you will see a blinking cursor, which means it&#39;s waiting for input. So if you type your name and press <strong>enter</strong>, it will print your name to the screen.</p>
+<p>After you did all this, you hopefully learned how to use variables and print them to the screen. Now, try to delete everything from the program and make it again, to see if you remember everything.</p>
+
+        </article>
+    </body>
+</html>
